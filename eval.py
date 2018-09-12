@@ -10,7 +10,7 @@ import torch.nn as nn
 import torch.backends.cudnn as cudnn
 from torch.autograd import Variable
 from data import VOC_ROOT, VOCAnnotationTransform, VOCDetection, BaseTransform
-from data import VOC_CLASSES as labelmap
+#from data import VOC_CLASSES as labelmap
 import torch.utils.data as data
 
 from ssd import build_ssd
@@ -28,6 +28,7 @@ if sys.version_info[0] == 2:
 else:
     import xml.etree.ElementTree as ET
 
+labelmap = r'p'
 
 def str2bool(v):
     return v.lower() in ("yes", "true", "t", "1")
@@ -420,7 +421,7 @@ def evaluate_detections(box_list, output_dir, dataset):
 
 if __name__ == '__main__':
     # load net
-    num_classes = len(labelmap) + 1                      # +1 for background
+    num_classes = 1                      # +1 for background
     net = build_ssd('test', 300, num_classes)            # initialize SSD
     net.load_state_dict(torch.load(args.trained_model))
     net.eval()
